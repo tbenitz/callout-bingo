@@ -105,6 +105,6 @@ function setVoice(v){
   }).catch(err=>update('error','Could not load voice: '+(err.message||err)));
  }else update(null,'Selected '+voices[v]+'.');
 }
-async function test(){enabled=true;await prepare();announce('Bingo! B seven. Your on-device caller is ready.')}
+async function test(){enabled=true;await prepare();announce('Bee, number twenty three. Your on-device caller is ready.')}
 window.CalloutVoice={status,setEnabled,setVoice,prepare,announce,test,stop};
 update();
