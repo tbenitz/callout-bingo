@@ -717,19 +717,20 @@ function callerDelay(cfg){
  return lo+Math.floor(Math.random()*(hi-lo+1));
 }
 function scheduleAuto(h){S.autoWindow=callerDelay(h.cfg);S.autoDue=Date.now()+S.autoWindow*1000;updateCountdown();}
+function callerVoiceBusy(){return !!(S.H?.cfg.readAloud&&window.CalloutVoice?.status()?.state==='speaking')}
 function startAuto(){
  const h=S.H;if(!h||isObserve(h.cfg)||h.phase!=='playing')return;
  if(!h.cfg.seconds)h.cfg.seconds=Math.max(3,Number(h.cfg.minSeconds)||10);
  stopAuto(false);h.autoActive=true;scheduleAuto(h);
  S.timer=setInterval(()=>{
   if(S.H!==h||h.phase!=='playing'||isObserve(h.cfg)){stopAuto();return;}
-  if(Date.now()>=S.autoDue){drawNext(false);if(S.H===h&&h.phase==='playing'&&h.autoActive)scheduleAuto(h)}
+  if(Date.now()>=S.autoDue){if(callerVoiceBusy()){S.autoDue=Date.now()+1000;}else{drawNext(false);if(S.H===h&&h.phase==='playing'&&h.autoActive)scheduleAuto(h)}}
   updateCountdown();
  },200);
  broadcastState();updateCountdown();
 }
 function stopAuto(update=true){if(S.timer){clearInterval(S.timer);S.timer=null}S.autoDue=0;S.autoWindow=0;if(S.H&&update){S.H.autoActive=false;broadcastState()}updateCountdown()}
-function updateCountdown(){const el=$('#countdown');if(el){if(S.H?.autoActive&&S.autoDue&&S.H.phase==='playing')el.textContent='Next in '+Math.max(0,Math.ceil((S.autoDue-Date.now())/1000))+'s';else el.textContent=S.H?.cfg.seconds?'Auto paused':''}}
+function updateCountdown(){const el=$('#countdown');if(el){if(S.H?.autoActive&&S.autoDue&&S.H.phase==='playing')el.textContent=callerVoiceBusy()?'Finishing voice…':'Next in '+Math.max(0,Math.ceil((S.autoDue-Date.now())/1000))+'s';else el.textContent=S.H?.cfg.seconds?'Auto paused':''}}
 function toggleAuto(){const h=S.H;if(!h||isObserve(h.cfg)||h.phase!=='playing')return;if(h.autoActive)stopAuto();else startAuto();render()}
 function saveCallerRange(min,max){
  const lo=Math.max(3,Math.min(180,Math.round(Number(min)||10))),hi=Math.max(lo,Math.min(180,Math.round(Number(max)||lo)));
