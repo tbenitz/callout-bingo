@@ -739,7 +739,7 @@ function receiveCall(call){const gate=S.voiceGate;const meta=call.metadata;if(!g
 function cleanupAudio(a){try{a.pause();a.srcObject=null;a.remove()}catch{}S.activeAudio=S.activeAudio.filter(x=>x.a!==a)}
 function stopRemoteAudio(){for(const x of [...S.activeAudio]){try{x.call.close()}catch{}cleanupAudio(x.a)}}
 function stopSpeaking(){if(S.voiceTimer)clearInterval(S.voiceTimer);S.voiceTimer=null;for(const call of S.voiceCalls)try{call.close()}catch{}S.voiceCalls=[];if(S.voiceStream){for(const track of S.voiceStream.getTracks())track.stop();S.voiceStream=null}S.voiceEnd=0;if(S.page==='game')render()}
-function closeNetwork(reset=true){stopSpeaking();stopRemoteAudio();if(S.timer){clearInterval(S.timer);S.timer=null}if(S.peer)try{S.peer.destroy()}catch{}S.peer=null;S.conn=null;S.conns=new Map();S.voiceGate=null;window.CalloutVoice?.stop();window.CalloutVoice?.setEnabled(false);if(reset){S.H=null;S.C=null;S.role='';S.status='';S.tv=false}}
+function closeNetwork(reset=true){stopSpeaking();stopRemoteAudio();if(S.timer){clearInterval(S.timer);S.timer=null}if(S.peer)try{S.peer.destroy()}catch{}S.peer=null;S.conn=null;S.conns=new Map();S.voiceGate=null;if(S.H)S.H.cfg.readAloud=false;window.CalloutVoice?.stop();window.CalloutVoice?.setEnabled(false);if(reset){S.H=null;S.C=null;S.role='';S.status='';S.tv=false}}
 function exportCalls(){const v=$('#callList')?.value||'';const blob=new Blob([v],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='callout-bingo-calls.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),500)}
 function confirmAction(text){return window.confirm(text)}
 let returnPage='home';
