@@ -17,7 +17,7 @@ Open **⚙ Settings** on the home screen, during setup, in the lobby, or while p
 
 - **Supertonic voice caller is ON by default** for the host and solo games. Choose the voice, press **Test**, or mute it in Settings. Your preference is remembered.
 - **Game sound effects** (beeps) have a separate On/Off setting. Turning off beeps does not turn off the voice caller or the winner's microphone.
-- **Timed caller:** For Classic Bingo (or a custom random-call game), enable it in Settings and enter **Minimum seconds** and **Maximum seconds** (3–180 seconds). For example, 10–20 seconds chooses a fresh random delay for every next call. Set both fields to 15 for exactly 15-second gaps. Use **Pause auto** or **Next call** during the game. A live countdown shows the next draw.
+- **Timed caller:** For Classic Bingo (or a custom random-call game), enable it in Settings and enter **Minimum seconds** and **Maximum seconds** (3–180 seconds). For example, 10–20 seconds chooses a fresh random delay for every next call. Set both fields to 15 for exactly 15-second gaps. Use **Pause auto** or **Next call** during the game. A live countdown shows the next draw, and auto-calling waits for any in-progress Supertonic announcement to finish before advancing.
 - **Party, Movie and Office Bingo** do not draw random calls; the timer is unavailable for observation games.
 - **Classic numbers** are read as complete words (for example, "Bee, number seven") when drawn.
 - Party, Movie and Office sightings are read aloud **only when players log a moment that actually happened**. No artificial events or random turns.
